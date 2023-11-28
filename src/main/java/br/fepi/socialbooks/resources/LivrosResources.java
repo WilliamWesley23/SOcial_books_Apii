@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.fepi.socialbooks.domain.Comentario;
 import br.fepi.socialbooks.domain.Livro;
 import br.fepi.socialbooks.repository.LivrosRepository;
 
@@ -19,6 +20,8 @@ public class LivrosResources {
 	
 	@Autowired
 	private LivrosRepository livrosRepository;
+	
+	private ComentariosRepository ComentariosRepository;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Livro> listar() {
@@ -48,4 +51,17 @@ public class LivrosResources {
 		livrosRepository.save(livro);
 	}
 	
-}
+
+
+	@RequestMapping(value = "/{id}/comentarios",
+			method = RequestMethod.POST)
+	public void adicionarComentario(@PathVariable("id")
+			Long livroId, @RequestBody comentario
+			comentario) {
+	public void adiconarComentario(Long livroId,Comentario comentario) {
+		Livro livro = new Livro();
+		livro.setId(livroId);
+		comentario.setLivro(livro);
+		ComentariosRepository.save(comentario);
+	}
+	}
